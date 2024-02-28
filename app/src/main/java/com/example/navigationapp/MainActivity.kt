@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun FirstScreen(navigationToSecondScreen:() -> Unit){
+fun FirstScreen(navigationToSecondScreen:(String) -> Unit){
     val name  = remember{ mutableStateOf("") }
     Column(modifier = Modifier
         .fillMaxSize()
@@ -67,7 +67,7 @@ fontWeight = FontWeight.Bold,
             name.value = it
         })
         ElevatedButton(onClick = {
-            navigationToSecondScreen()
+            navigationToSecondScreen(name.value)
         }) {
             Text(text = "Next Screen")
         }
@@ -81,12 +81,13 @@ fun MyApp(){
         startDestination = "firstScreen",
         ){
         composable("firstscreen"){
-            FirstScreen {
-                navController.navigate("secondscreen")
+            FirstScreen {name->
+                navController.navigate("secondscreen/$name")
             }
         }
-        composable(route= "secondscreen"){
-            SecondScreen {
+        composable(route= "secondscreen/{name}"){
+          val name = it.arguments?.getString("name") ?:"no name"
+            SecondScreen(name) {
                 navController.navigate("firstscreen")
             }
         }

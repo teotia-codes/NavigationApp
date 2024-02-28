@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun SecondScreen(navigateToFirstScreen:()->Unit){
+fun SecondScreen(name : String,navigateToFirstScreen:()->Unit){
     val name  = remember{ mutableStateOf("") }
     Column(modifier = Modifier
         .fillMaxSize()
@@ -36,7 +36,7 @@ fun SecondScreen(navigateToFirstScreen:()->Unit){
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Welcome",)
+        Text(text = "Welcome $name",)
         ElevatedButton(onClick = {
             navigateToFirstScreen()
         }) {
@@ -49,5 +49,5 @@ fun SecondScreen(navigateToFirstScreen:()->Unit){
 @Preview(showBackground = true)
 @Composable
 fun SecondScreenPreview() {
-    SecondScreen({})
+    SecondScreen("Priyanshu",{})
 }
