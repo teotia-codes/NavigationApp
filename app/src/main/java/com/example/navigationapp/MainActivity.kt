@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                      MyApp()
                 }
             }
         }
@@ -54,10 +55,10 @@ fun FirstScreen(navigationToSecondScreen:() -> Unit){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
-            text = "Your text here",
+            text = "First Screen",
             modifier = Modifier,
-
-            fontSize = 16.sp,
+fontWeight = FontWeight.Bold,
+            fontSize = 24.sp,
             // Specify other parameters as needed
         )
 
@@ -79,8 +80,16 @@ fun MyApp(){
     NavHost(navController = navController,
         startDestination = "firstScreen",
         ){
-        composable("firstscreen"){}
-        composable(route= "secondscreen"){}
+        composable("firstscreen"){
+            FirstScreen {
+                navController.navigate("secondscreen")
+            }
+        }
+        composable(route= "secondscreen"){
+            SecondScreen {
+                navController.navigate("firstscreen")
+            }
+        }
     }
 }
 

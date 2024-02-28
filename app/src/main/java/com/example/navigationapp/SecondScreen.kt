@@ -13,13 +13,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun SecondScreen(){
+fun SecondScreen(navigateToFirstScreen:()->Unit){
     val name  = remember{ mutableStateOf("") }
     Column(modifier = Modifier
         .fillMaxSize()
@@ -29,14 +30,16 @@ fun SecondScreen(){
         Text(
             text = "This is Second Screen",
             modifier = Modifier,
-
-            fontSize = 16.sp,
+             fontWeight = FontWeight.Bold,
+            fontSize = 26.sp,
             // Specify other parameters as needed
         )
 
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Welcome",)
-        ElevatedButton(onClick = { /*TODO*/ }) {
+        ElevatedButton(onClick = {
+            navigateToFirstScreen()
+        }) {
             Text(text = "Go to First Screen")
         }
 
@@ -46,5 +49,5 @@ fun SecondScreen(){
 @Preview(showBackground = true)
 @Composable
 fun SecondScreenPreview() {
-    SecondScreen()
+    SecondScreen({})
 }
